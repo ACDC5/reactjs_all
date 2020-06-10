@@ -1,3 +1,6 @@
+react生命周期
+![avatar](./微信图片_20200430100453.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

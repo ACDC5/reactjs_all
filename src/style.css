@@ -1,0 +1,4 @@
+
+/*.开头为类选择器 <div className=show>*/
+.show{opacity: 1;transition: all 1.5s ease-in }
+.hide{opacity: 0;transition: all 1.5s ease-in}
