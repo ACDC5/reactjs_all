@@ -13,6 +13,9 @@ import Exp_useRef from "./hooks/Exp_useRef";
 import MyHooks from "./hooks/Exp_myHooks";
 import AppRouter from "./router/AppRouter";
 import TodoList from "./redux/TodoList";
+import MyTodoList from "./practicePoints/redux_todoList/MyTodoList";
+import {Button} from "antd";
+import Js from "./Js";
 
 //react学习
 class Xiaojiejie extends Component{
@@ -56,7 +59,7 @@ class Xiaojiejie extends Component{
     //     console.log('2 componentWillUpdate-----组件更新前执行');
     // }
 
-    //页面更后前执行该函数。在shouldComponentUpdate函数反回true时才会执行
+    //页面更新后前执行该函数。在shouldComponentUpdate函数反回true时才会执行
     // componentDidUpdate() {
     //     console.log('4 componentDidUpdate-----组件更新完成后');
     // }
@@ -97,7 +100,7 @@ class Xiaojiejie extends Component{
                                        index={index}
                                        //向子组件传递方法,然后通过传入的函数来操作
                                        //父组件的数据
-                                       delete={this.deteleItem.bind(this)}
+                                       delete={this.deleteItem.bind(this)}
                                    />
                                </div>
                            );
@@ -146,7 +149,7 @@ class Xiaojiejie extends Component{
                 <p>------*useMyHooks*-----</p>
                 <MyHooks/>
                 <br/>
-                <br/>
+                <p>---------*End Hooks*----------</p>
 
                 <p>------*BrowserRouter as Router*-----</p>
                 <p>------*router目录下的每一个文件夹都是一个小场景*-----</p>
@@ -156,6 +159,14 @@ class Xiaojiejie extends Component{
 
                 <p>------redux------</p>
                 <TodoList/>
+                <br/>
+
+                <p>:)-----强化part------(:</p>
+                <MyTodoList/>
+                <br/>
+
+                <p>:)-----js world------(:</p>
+                <Js/>
             </Fragment>
         );
     }
@@ -191,7 +202,7 @@ class Xiaojiejie extends Component{
     };
 
     //删除数据
-    deteleItem(index){
+    deleteItem(index){
         //这样做也可实现删除数据的功能，但react不准许怎么做。react禁止直接操作state数据。因为随着时间推移这将影响性能
         // this.state.list.splice(index,1)
         // this.setState({
@@ -204,6 +215,7 @@ class Xiaojiejie extends Component{
         list.splice(index,1);
         this.setState({list:list})
     }
+
 }
 
 export default Xiaojiejie

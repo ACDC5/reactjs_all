@@ -6,19 +6,21 @@ import Index from './pages/Index';
 import Home from './pages/Home';
 import Level from "./nested_route/Level";
 import "./nested_route/level.css";
+import Js from "../Js";
 import Video from "./nested_route/Video";
 import JobMarket from "./nested_route/workplace/JobMarket";
+import JsEntrance from "./pages/JsEntrance";
 
 function AppRouter() {
     // return (
-    //     TODO router的一般写法,传参,精确匹配路径,重定向等demo
+    //     TODO router的一般写法,传参,精确匹配路径,重定向到demo
     //     <Router>
     //         <ul>
     //             <li><Link to='/'>首页</Link></li>
     //             <li><Link to='/list:123'>列表</Link></li>
     //             <li><Link to={'/home'}>家</Link></li>
     //         </ul>
-    //         {/*exact精确匹配:url路径中只有一个 / 才能匹配到Index页面
+    //         {/*exact精确匹配:url路径中只有一个 / 才能匹配到Index(首页)页面
     //         http://localhost:3000/ 浏览器地址栏不显示第一个/符号，复制到
     //         别的地方就能看到所有url字符*/}
     //         <Route path='/' exact component={Index}></Route>
@@ -38,11 +40,13 @@ function AppRouter() {
         {path:'/',title:'博客首页',exact:true,component:Level},
         {path:'/video',title:'视频教程',exact:false,component:Video},
         {path:'/workplace',title:'职场技能',exact:false,component:JobMarket},
+        // {path:'/jsWorld',title:'js世界',exact:true,component:JsEntrance},
     ]
     return(
         //TODO 演示router的嵌套路由(导航)
         <Router>
             <div className='mainDiv'>
+                {/*匹配路由的名称等*/}
                 <div className='leftNav'>
                     <h3>一级导航</h3>
                     <ul>
@@ -58,6 +62,7 @@ function AppRouter() {
                     </ul>
                 </div>
 
+                {/*匹配路由路径等*/}
                 <div className='rightMain'>
                     {
                         routeConfig.map((item,index) => {
