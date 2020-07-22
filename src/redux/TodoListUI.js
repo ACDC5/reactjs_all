@@ -20,7 +20,10 @@ export default function TodoListUI(props) {
                 />
                 <Button type='primary' onClick={props.onButt}>增加</Button>
             </div>
-            <div style={{margin: '10px', width: '300px'}}>
+            <div style={{margin: '10px', width: '400px'}}>
+                {/*TODO 已解决的bug-1 renderItem无法循环null关键字数据，会报错...被坑了好几天。debug源码才发现是数据的问题
+                    解决反方法:在获取数据的地方判断每一个加入数组的数据是否为关键字null，如果是，
+                    continue或break,或者替换null关键字*/}
                 <List
                     bordered
                     dataSource={props.list}

@@ -162,7 +162,8 @@ class Xiaojiejie extends Component{
                 <br/>
 
                 <p>:)-----强化part------(:</p>
-                <MyTodoList/>
+                {/*reduce的store只能存在一个，需要将练习时写的注释掉*/}
+                {/*<MyTodoList/>*/}
                 <br/>
 
                 <p>:)-----js world------(:</p>

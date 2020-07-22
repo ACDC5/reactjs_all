@@ -8,10 +8,12 @@
 //     return (
 //         <>
 //             <div>
-//                 <Link to='/jsWorld/Js'>into js</Link>
+//                 <Link to='/jsWorld/Js'>
+//                     <Button type='primary' onClick={openJsPage.bind(this)}>into js</Button>
+//                 </Link>
 //             </div>
 //             <div>
-//                 {/*<Route path='/jsWorld/Js' component={Js}/>*/}
+//                 <Route path='/jsWorld/Js' component={Js}/>
 //             </div>
 //         </>
 //     );
@@ -19,7 +21,7 @@
 //     function openJsPage() {
 //         //在当前页面打开网页
 //         // window.location.href='https://www.baidu.com'
-//         const w = window.open('about:blank');
-//         w.location.href = 'http://localhost:3000/';
+//         const w = window.open('/jsWorld/Js');
+//         // w.location.href = 'http://localhost:3000/jsWorld/Js';
 //     }
 // }

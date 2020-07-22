@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 
-
+//在顶级的index中注释了百度配置
 export default function BDMap() {
     const [container,setContainer] = useState(null)
 

@@ -19,7 +19,7 @@ export default class TodoList extends Component{
         super(props);
         this.state = store.getState()
 
-        //订阅模式(可以理解为只要store中的state变化了就自动执行订阅方法，以使组件更新)。使reducer返回的新state加载到组件中
+        //订阅模式(可以理解为只要store中的state变化了就自动执行订阅方法，以使组件更新),使reducer返回的新state加载到组件中
         //不订阅不会重新设置组件state
         store.subscribe(this.myStoreChange)
 
@@ -29,7 +29,6 @@ export default class TodoList extends Component{
         //内时this.func能成功执行函数，但函数内的this是没有定义的所以请在调用时绑定this，或者
         //在组件加载时绑定(构造器中绑定)，或使用匿名函数;
         this.generalFunc = this.generalFunc.bind(this);
-        this.getOriginData = this.getOriginData.bind(this);
     }
 
     //远程获取数据，
@@ -48,7 +47,10 @@ export default class TodoList extends Component{
         //获取action，在这里获取的action是一个函数，
         // 之前的增删和监听文本框操作的action是对象
         const action = getTodoList();
-        store.dispatch(Object(action));
+        //getTodoList()的作用是起到中间件的作用：异步获取数据作action.value和action.type。
+        // 因为reducer只能写纯函数，异步获取数据不能写在其中
+        //获取action后调用dispatch
+        store.dispatch(Object(action))
     }
 
     render() {
@@ -86,16 +88,10 @@ export default class TodoList extends Component{
         )
     }
 
-    myStoreChange = () =>{
+    myStoreChange = () => {
         console.log('store发生变化后自动获取更新后的state。',this)
         //从store拿到所有state
         this.setState(store.getState());
-    }
-
-    getOriginData(res) {
-        console.log('准备推送到store：'+res.data)
-        const action = getInitDataAction(res)
-        store.dispatch(action);
     }
 
     generalFunc() {
@@ -110,7 +106,7 @@ function addItem() {
     store.dispatch(action);
 }
 
-//TODO 删除存在问题，总是删除下标为0的记录
+//TODO 删除存在问题，总是删除下标为0的记录(已修复)
 //点击数据时删除数据
 function deleteItem(index) {
     console.log('-----------删除项下标',index)
