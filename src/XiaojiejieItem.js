@@ -17,9 +17,9 @@ class XiaojiejieItem extends Component {
 
     //组件在第一次存在于DOM中，该函数是不会被执行的
     //如果已经存在于Dom中，函数才会被执行
-    // componentWillReceiveProps() {
-    //     console.log('componentWillReceiveProps------我是子组件');
-    // }
+    componentWillReceiveProps() {
+        console.log('componentWillReceiveProps------我是子组件');
+    }
 
     //实际应用场景，每当文本框中的内容发生变化时
     //是不需要更新子组件的，为了提升性能,使用该生命周期进行区分

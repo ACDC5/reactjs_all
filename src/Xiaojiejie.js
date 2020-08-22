@@ -16,6 +16,7 @@ import TodoList from "./redux/TodoList";
 import MyTodoList from "./practicePoints/redux_todoList/MyTodoList";
 import {Button} from "antd";
 import Js from "./Js";
+import MyAjax from "./base/MyAjax";
 
 //react学习
 class Xiaojiejie extends Component{
@@ -61,7 +62,7 @@ class Xiaojiejie extends Component{
 
     //页面更新后前执行该函数。在shouldComponentUpdate函数反回true时才会执行
     // componentDidUpdate() {
-    //     console.log('4 componentDidUpdate-----组件更新完成后');
+    //     console.log('3 componentDidUpdate-----组件更新完成后');
     // }
 
     //因为这里是顶层组件，所以该函数不会执行，在他的子组件中调用时会执行
@@ -83,6 +84,9 @@ class Xiaojiejie extends Component{
                     />
                     <button onClick={this.addList.bind(this)}>添加服务</button>
                 </div>
+                <h2>{console.log('首次挂载时先执render函数(即先加载页面)再执行生命周期函数(除挂组件载前函数)' +
+                    '&&&&&&&&&&&&')}
+                </h2>
                 <ul>
                     {
                         this.state.list.map((item,index) => {
@@ -168,6 +172,11 @@ class Xiaojiejie extends Component{
 
                 <p>:)-----js world------(:</p>
                 <Js/>
+                <br/>
+
+                <p>:)-----web req------(:</p>
+                <MyAjax/>
+
             </Fragment>
         );
     }

@@ -31,11 +31,6 @@ export const getInitDataAction = (res) => ({
 //返回的action可以在reducer中操作
 export const getTodoList = () => {
     return (dispatch) => {
-        let tet = 'string';
-        let test = 'shah:'+tet
-        tet = test
-        console.log(tet,'，'+test+'ddd'+typeof null)
-        console.log(typeof undefined)
         //'https://www.easy-mock.com/mock/5eac2ef0a9af2438fc69ee42/reactOne/Xiaojiejie' 服务器不稳定
         axios.get('https://api.github.com/users/acdc')
             .then((res) => {
