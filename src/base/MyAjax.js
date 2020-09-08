@@ -15,7 +15,7 @@ export default class MyAjax extends Component{
                 <Input
                     placeholder='url'
                 />
-                <Button type='primary' onClick={this.myFly}>FLY</Button>
+                <Button type='primary' onClick={this.myFly}>All req</Button>
             </>
         )
     }

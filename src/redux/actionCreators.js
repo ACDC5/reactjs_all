@@ -51,6 +51,7 @@ export const getTodoList = () => {
                     element = i.concat(' :  ') + element;
                     arr.push(element);
                 }
+                //获取action同时获取数据一并返回
                 const action = getInitDataAction(arr);
                 dispatch(action)
             }).catch(err => {

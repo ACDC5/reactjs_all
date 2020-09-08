@@ -42,7 +42,7 @@ export default class TodoList extends Component{
     //     })
     // }
 
-    //TODO 17 bug获取数据失败
+    //TODO 17 bug获取数据失败(原因:网络问题)
     componentDidMount() {
         //获取action，在这里获取的action是一个函数，
         // 之前的增删和监听文本框操作的action是对象
