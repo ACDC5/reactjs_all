@@ -99,7 +99,7 @@ class Xiaojiejie extends Component{
                                // 将注释掉代码(数据展示)单独拆分成一个组件
                                <div key={index+item}>
                                    <XiaojiejieItem
-                                       avName='三浦绘里子'
+                                       avName='三十秒上火星'
                                        content={item}
                                        index={index}
                                        //向子组件传递方法,然后通过传入的函数来操作
