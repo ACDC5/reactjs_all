@@ -27,7 +27,7 @@ class Xiaojiejie extends Component{
         super(props);
         this.state = {
             word:'',
-            list:['中药泡手','软式推背'],
+            list:['中药泡脚','软式推背'],
         }
     }
 
@@ -174,7 +174,7 @@ class Xiaojiejie extends Component{
                 <Js/>
                 <br/>
 
-                <p>:)-----web req------(:</p>
+                <p>:)-----web req------(:</p>x
                 <MyAjax/>
 
             </Fragment>
@@ -200,15 +200,22 @@ class Xiaojiejie extends Component{
 
     //添加数据
     addList(){
-        //用剩余参数取到list状态的所有值，并将用户输入的值存入末尾，以此构建一个新的数据，并赋给list状态
-        this.setState({
-            list:[...this.state.list,this.state.word],
-            //添加完后设置输入框为空
-            //TODO Bug输入框中的值添加完后实际已经被清除，但框中的文字没有被清除
-            word:'我已经清了'
-        })
-        // console.log(this.ul.querySelectorAll('li').length);
-        //TODO 18 part 报错
+        if (this.state.word === null || this.state.word === '') {
+            alert('空值无法添加，请输入任意字符')
+        } else {
+            //用剩余参数取到list状态的所有值，并将用户输入的值存入末尾，以此构建一个新的数据，并赋给list状态
+            this.setState({
+                list:[...this.state.list,this.state.word],
+                //添加完后设置输入框为空
+                //TODO Bug输入框中的值添加完后实际已经被清除，但框中的文字没有被清除(已解决.原因:只清除了state中存储的值，没有清除文本框中的值)
+                word:''
+            })
+            //TODO 添加完后，清除文本框中的值
+            this.input.value = ''
+
+            // console.log(this.ul.querySelectorAll('li').length);
+            //TODO 18 part 报错
+        }
     };
 
     //删除数据
