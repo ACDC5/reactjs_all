@@ -12,6 +12,7 @@ function Example () {
     )
 }
 
+//计数器-使用类组件的写法
 // class Example extends Component{
 //     constructor(props) {
 //         super(props);

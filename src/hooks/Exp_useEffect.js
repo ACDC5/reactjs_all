@@ -2,10 +2,10 @@ import React,{useState,useEffect} from "react";
 import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
 
 function Index() {
-    //useEffect相当于函数组件的生命周期(部分)
+    //useEffect是函数组件的生命周期(部分)
     // useEffect(() => {
            //只要当前页面(注意不是当前组件)有任何状态发生改变，都会触发解绑(全局触发。不严谨)
-    //     console.log('useEffect=>hello 你来了！ Index页面');
+    //     console.log('useEffect=>hello 你来！ Index页面');
             //解绑函数
     //     return (() => {
     //         //Index被注销时触发解绑

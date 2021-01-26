@@ -26,8 +26,10 @@ class XiaojiejieItem extends Component {
     //参数1:将要变化的属性，参数2:将要变化状态
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         if (nextProps.content !== this.props.content) {
+            // console.log(':)',nextProps.content)
             return true;
         } else {
+            // console.log(':(',this.props.content,nextProps.content)
             return false;
         }
     }
@@ -37,7 +39,7 @@ class XiaojiejieItem extends Component {
         console.log('child-render')
         return(
             <li onClick={this.handleClick}>
-                {this.props.avName},{this.props.avAge}为你做~{this.props.content}
+                {this.props.avName},{this.props.avAge}为你推荐~{this.props.content}
             </li>
         )
     }
@@ -67,7 +69,7 @@ XiaojiejieItem.protoType={
 
 //为属性设置默认值
 XiaojiejieItem.defaultProps={
-    avAge:'年龄22'
+    avAge:'年龄2022'
     //TODO 16 end
 }
 
