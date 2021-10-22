@@ -17,6 +17,9 @@ import MyTodoList from "./practicePoints/redux_todoList/MyTodoList";
 import {Button} from "antd";
 import Js from "./Js";
 import MyAjax from "./base/MyAjax";
+import { object } from "prop-types";
+
+let fs = require('fs')
 
 //react学习
 class Xiaojiejie extends Component{
@@ -28,6 +31,7 @@ class Xiaojiejie extends Component{
         this.state = {
             word:'',
             list:['中药泡脚','软式推背'],
+            child:false
         }
     }
 
@@ -70,9 +74,69 @@ class Xiaojiejie extends Component{
     //     console.log('componentWillReceiveProps');
     // }
 
+
+    //获取用户输入的值
+    // inputChange(e){
+    //获取用户输入的值
+    // this.setState({word:e.target.value});
+    // console.log('捕捉到的值: '+this.state.word);
+    // console.log(this);
+    // };
+
+    //测试孙子组件调用爷爷组件的状态值(调用函数)
+    test = () => {
+        const {child} =this.state
+        this.setState({child:child ? false :true})
+    }
+    //获取用户输入的值
+    inputChange(){
+        // this.state.word = e.target.value;
+        //使用ref获取用户输入的值，使用ref更具可读性(当前函数不用再传递参数)
+        this.setState({word:this.input.value});
+        // console.log('捕捉到的值: '+this.state.word);
+        // console.log(this);
+    }
+
+    //添加数据
+    addList(){
+        const {list} = this.state
+        if (this.state.word === null || this.state.word === '') {
+            alert('空值无法添加，请输入任意字符')
+        } else {
+            //用剩余参数取到list状态的所有值，并将用户输入的值存入末尾，以此构建一个新的数据，并赋给list状态
+            this.setState({
+                list:[...list,this.state.word],
+                //添加完后设置输入框为空
+                //TODO Bug输入框中的值添加完后实际已经被清除，但框中的文字没有被清除(已解决.原因:只清除了state中存储的值，没有清除文本框中的值)
+                word:''
+            })
+            //TODO 添加完后，清除文本框中的值
+            this.input.value = ''
+
+            // console.log(this.ul.querySelectorAll('li').length);
+            //TODO 18 part 报错
+        }
+    };
+
+    //删除数据
+    deleteItem(index){
+        //这样做也可实现删除数据的功能，但react不准许怎么做。react禁止直接操作state数据。因为随着时间推移这将影响性能
+        // this.state.list.splice(index,1)
+        // this.setState({
+        //     list:this.state.list
+        // });
+
+        // console.log('被删除元素的下标'+index);
+        let list = this.state.list;
+        // 参数1指定要删除的元素的下标，参数2声明要删除的数量。该函数返回删除元素后的数组
+        list.splice(index,1);
+        this.setState({list:list})
+    }
+
+
     //每当状态改变的时候触发render
     render() {
-        // console.log('3 render-------组件挂载中');
+        const {child} = this.state
         return(
             //当我们不需要最外层的包裹层时可以使用Fragment替代
             <Fragment>
@@ -84,9 +148,6 @@ class Xiaojiejie extends Component{
                     />
                     <button onClick={this.addList.bind(this)}>添加服务</button>
                 </div>
-                <h2>{console.log('首次挂载时先执render函数(即先加载页面)再执行生命周期函数(除挂组件载前函数)' +
-                    '&&&&&&&&&&&&')}
-                </h2>
                 <ul>
                     {
                         this.state.list.map((item,index) => {
@@ -105,6 +166,7 @@ class Xiaojiejie extends Component{
                                        //向子组件传递方法,然后通过传入的函数来操作
                                        //父组件的数据
                                        delete={this.deleteItem.bind(this)}
+                                       childFun={this.test}
                                    />
                                </div>
                            );
@@ -181,57 +243,6 @@ class Xiaojiejie extends Component{
         );
     }
 
-    //获取用户输入的值
-    // inputChange(e){
-        //获取用户输入的值
-        // this.setState({word:e.target.value});
-        // console.log('捕捉到的值: '+this.state.word);
-        // console.log(this);
-    // };
-
-    //获取用户输入的值
-    inputChange(){
-        // this.state.word = e.target.value;
-        //使用ref获取用户输入的值，使用ref更具可读性(当前函数不用再传递参数)
-        this.setState({word:this.input.value});
-        // console.log('捕捉到的值: '+this.state.word);
-        // console.log(this);
-    }
-
-    //添加数据
-    addList(){
-        if (this.state.word === null || this.state.word === '') {
-            alert('空值无法添加，请输入任意字符')
-        } else {
-            //用剩余参数取到list状态的所有值，并将用户输入的值存入末尾，以此构建一个新的数据，并赋给list状态
-            this.setState({
-                list:[...this.state.list,this.state.word],
-                //添加完后设置输入框为空
-                //TODO Bug输入框中的值添加完后实际已经被清除，但框中的文字没有被清除(已解决.原因:只清除了state中存储的值，没有清除文本框中的值)
-                word:''
-            })
-            //TODO 添加完后，清除文本框中的值
-            this.input.value = ''
-
-            // console.log(this.ul.querySelectorAll('li').length);
-            //TODO 18 part 报错
-        }
-    };
-
-    //删除数据
-    deleteItem(index){
-        //这样做也可实现删除数据的功能，但react不准许怎么做。react禁止直接操作state数据。因为随着时间推移这将影响性能
-        // this.state.list.splice(index,1)
-        // this.setState({
-        //     list:this.state.list
-        // });
-
-        console.log('被删除元素的下标'+index);
-        let list = this.state.list;
-        // 参数1指定要删除的元素的下标，参数2声明要删除的数量。该函数返回删除元素后的数组
-        list.splice(index,1);
-        this.setState({list:list})
-    }
 
 }
 

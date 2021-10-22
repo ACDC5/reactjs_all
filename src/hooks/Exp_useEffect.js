@@ -27,7 +27,7 @@ function Index() {
         return (() => {
             console.log('hello 你走了！ Index');
         })
-    },[])
+    })
     return <h2>baidu.com</h2>
 }
 

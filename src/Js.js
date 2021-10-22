@@ -1,20 +1,30 @@
 import React ,{Component} from "react";
 import {Button} from 'antd'
+import { throwStatement } from "@babel/types";
+const fs = require('fs')
+
 export default class Js extends Component{
-
-
     render() {
-        // var arr=[4]
-        // var arr2=new Array(4)
-        // console.log(':)'+arr.length+"---"+arr2.length)
-        return(
-            <>
-                <Button type={"primary"} onClick={this.intoJs}>我的世界</Button>
-            </>
-        );
+        return (
+            <div>
+                <p>{this.getData()}</p>
+            </div>
+            )
+
     }
 
-    intoJs = () => {
+    getData = () => {
+        const p = new Promise((resolve,reject) => {
+            fs.readFile('./App.js',(err,data) => {
+                if(err) reject(err);
+                resolve(data)
+            })
+        });
+        p.then(function(value){
+            console.log(value.toString())
+        },function(err){
+            console.log(err)
+        })
 
     }
 }

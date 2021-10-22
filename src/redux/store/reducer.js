@@ -10,7 +10,7 @@ const defaultState = {
 export default (state = defaultState,action) => {
     //Reducer只能接收state，不能改变state
     //action类似广播，告知应用当前action改变了哪些state
-    console.log('当前的reducer:'+ '状态:',state,',action的类型和带来的值:',action)
+    // console.log('当前的reducer:'+ '状态:',state,',action的类型和带来的值:',action)
     if(action.type===CHANGEINPUT){
         //因为state不可更改，所以复制一份state进行更改
         let newState = JSON.parse(JSON.stringify(state));
@@ -38,7 +38,7 @@ export default (state = defaultState,action) => {
     }
 
     if (action.type===GETDATA) {
-        console.log('值是：'+action.res);
+        // console.log('值是：'+action.res);
         let newState = JSON.parse(JSON.stringify(state));
         newState.list = action.res;
         return newState;

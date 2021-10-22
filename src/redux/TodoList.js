@@ -49,7 +49,7 @@ export default class TodoList extends Component{
         const action = getTodoList();
         //getTodoList()的作用是起到中间件的作用：异步获取数据作action.value和action.type。
         // 因为reducer只能写纯函数，异步获取数据不能写在其中
-        //获取action后调用dispatch
+        //获取action后调用dispatch(将最新获取到的state推送到组件中，以实现数据的更新)
         store.dispatch(Object(action))
     }
 
@@ -89,19 +89,19 @@ export default class TodoList extends Component{
     }
 
     myStoreChange = () => {
-        console.log('store发生变化后自动获取更新后的state。',this)
+        // console.log('store发生变化后自动获取更新后的state。',this)
         //从store拿到所有state
         this.setState(store.getState());
     }
 
     generalFunc() {
-        console.log('普通函数的this:'+this+'写在组件内的func可以在构造器中绑定this？',this)
+        // console.log('普通函数的this:'+this+'写在组件内的func可以在构造器中绑定this？',this)
     }
 }
 
 //添加数据
 function addItem() {
-    console.log('-----------添加项',this)
+    // console.log('-----------添加项',this)
     const action = addItemAction()
     store.dispatch(action);
 }
@@ -109,7 +109,7 @@ function addItem() {
 //TODO 删除存在问题，总是删除下标为0的记录(已修复)
 //点击数据时删除数据
 function deleteItem(index) {
-    console.log('-----------删除项下标',index)
+    // console.log('-----------删除项下标',index)
     const action = deleteItemAction(index)
     store.dispatch(action)
 }

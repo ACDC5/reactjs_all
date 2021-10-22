@@ -1,5 +1,7 @@
 import React,{Component} from "react";
 import PropTypes from 'prop-types';
+import XiaojiejieItemChild from "./XiaojiejieItemChild";
+
 
 //组件拆分
 class XiaojiejieItem extends Component {
@@ -10,16 +12,17 @@ class XiaojiejieItem extends Component {
     }
 
     // 在shouldComponentUpdate函数反回true时才会执行
-    componentWillUnmount() {
-        console.log('4 componentWillUnmount------组件将要被删除时执行')
-        //TODO 21 end
-    }
+    // componentWillUnmount() {
+    //     console.log('4 componentWillUnmount------组件将要被删除时执行')
+    //     //TODO 21 end
+    // }
 
-    //组件在第一次存在于DOM中，该函数是不会被执行的
-    //如果已经存在于Dom中，函数才会被执行
-    componentWillReceiveProps() {
-        console.log('componentWillReceiveProps------我是子组件');
-    }
+    //避坑:父组件第一次render并向子组件传属性时,
+    // 该函数是不会执行的，随后父组件的render更新并向子组件传递属性时，才会执行
+    //该函数
+    // componentWillReceiveProps() {
+    //     console.log('componentWillReceiveProps------我是子组件');
+    // }
 
     //实际应用场景，每当文本框中的内容发生变化时
     //是不需要更新子组件的，为了提升性能,使用该生命周期进行区分
@@ -36,11 +39,15 @@ class XiaojiejieItem extends Component {
 
     //react中不允许子组件直接向父组件传值
     render() {
-        console.log('child-render')
+        const {childFun} = this.props
+        // console.log('child-render')
         return(
-            <li onClick={this.handleClick}>
-                {this.props.avName},{this.props.avAge}为你推荐~{this.props.content}
-            </li>
+            <div>
+                <li onClick={this.handleClick}>
+                    {this.props.avName},{this.props.avAge}为你推荐~{this.props.content}
+                </li>
+                <XiaojiejieItemChild multilayer={childFun}/>
+            </div>
         )
     }
 
