@@ -1,13 +1,16 @@
 import React,{Component} from 'react';
 import Xiaojiejie from "./Xiaojiejie";
+import GitApp from "./gitUserInfo/GitApp";
 
 class App extends Component{
     render(){
         return(
-            <Xiaojiejie/>
-            // <div>
-            //     Hello baby无齿
-            // </div>
+            <div>
+                {/*<Xiaojiejie/>*/}
+
+                {/*2021-10-25*/}
+                <GitApp/>
+            </div>
         )
     }
 }

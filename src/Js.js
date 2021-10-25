@@ -23,7 +23,7 @@ export default class Js extends Component{
         p.then(function(value){
             console.log(value.toString())
         },function(err){
-            console.log(err)
+            console.log('获取失败',err)
         })
 
     }

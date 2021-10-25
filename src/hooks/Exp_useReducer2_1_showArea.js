@@ -1,7 +1,7 @@
 import React,{useContext} from "react";
 import {ColorContext} from "./Exp_useReducer2_4_color";
 
-function Exp_useReducer2_1_showArea() {
+function Exp_UseReducer2_1_ShowArea() {
     // Step4-声明子组件,用useContext来接收共享的数据(或者说接收来自父组件的值)
     const {color} = useContext(ColorContext)
     return(
@@ -9,4 +9,4 @@ function Exp_useReducer2_1_showArea() {
     )
 }
 
-export default Exp_useReducer2_1_showArea;
+export default Exp_UseReducer2_1_ShowArea;
