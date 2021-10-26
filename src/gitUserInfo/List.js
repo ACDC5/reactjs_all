@@ -9,7 +9,7 @@ class List extends Component {
                 {
                     isFirst ? <h3>欢迎使用github搜索功能</h3> :
                   isLoading ? <h3>正在加载...</h3> :
-                        err ? <h3>{err}</h3> :
+                        err ? <h3 style={{color:'red'}}>{err}</h3> :
 
                         users.map(userObj => {
                             return(
