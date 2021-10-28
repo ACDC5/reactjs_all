@@ -9,6 +9,7 @@ class Search extends Component {
         const {value} = this.keyWordElement
         //发送请求前(点击搜索按钮时):更新兄弟组件List状态(欢迎语和数据加载中的提示)
         SubPub.publish('xyz',{isFirst:false,isLoading: true})
+        console.log('@进入search方法')
 
         // 发送fetch请求,fetch符合关‘注分离原则’，可以理解为不是一步拿到数据
         // 在fetch表现为:第一步先联系服务器(这一步是不能直接拿到相应数据的)，第二步再获取数据
@@ -51,6 +52,7 @@ class Search extends Component {
             //连接服务器
             //TODO 如果将链接写错，try/catch无法捕获 链接错误导致的404异常！
             const res = await fetch(`https://api.github.com/search/users?q=${value}`)
+            console.log('@得到fetch连接网络的结果--使用await有异步代码同步的效果')
             //获取服务器返回的数据
             const data = await res.json()
             SubPub.publish('xyz',{isLoading: false,users:data.items})
@@ -58,6 +60,8 @@ class Search extends Component {
             console.log('请求数据失败:',err)
             SubPub.publish('xyz',{isLoading: false,err:err.message})
         }
+
+        console.log('@search方法的最后一行')
     }
 
     render() {
