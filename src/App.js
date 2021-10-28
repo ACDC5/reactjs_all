@@ -3,6 +3,7 @@ import Xiaojiejie from "./Xiaojiejie";
 import GitApp from "./gitUserInfo/GitApp";
 import SubAndSub from './gitUserInfo(pubSub)/GitApp'
 import UseFetchDemo from './gitUserInfo(useFetch)/GitApp'
+import ReduxApp from "./myRedux/ReduxApp";
 
 class App extends Component{
     render(){
@@ -18,7 +19,10 @@ class App extends Component{
                 {/*<SubAndSub/>*/}
 
                 {/*2021-10-26搜索github用户案例(请求方式改为:fetch)*/}
-                <UseFetchDemo/>
+                {/*<UseFetchDemo/>*/}
+
+                {/*2021-10-28 redux案例*/}
+                <ReduxApp/>
             </div>
         )
     }
