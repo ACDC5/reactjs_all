@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import story from "./test_story/story";
 
-// https://www.bilibili.com/video/BV1wy4y1D7JT?p=101
+// https://www.bilibili.com/video/BV1wy4y1D7JT?p=100
 class ReduxApp extends Component {
 
     //使用redux也组件也可有自己的state，我们只需将公享的state放到redux
