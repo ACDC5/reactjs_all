@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import {store} from './redux/Index'*/
 
 //2021-10-28
-import story from "./myRedux/test_story/story";
+import story from "./myRedux_v2/test_story/story";
 
 //react-redux只是大概了解学习了一下，没有动手写(P21-24)
 //被Provider包裹的组件都能获取到store中的state,
@@ -26,7 +26,6 @@ ReactDOM.render(<App/>,document.getElementById('root'));
 //TODO 一劳永逸的办法，将reducer监听回调下载应用的入口文件，只要应用的某个状态改变，
 //TODO 整个应用的更新(不会有效率问题，react的diff算法只更新state改变的组件)
 story.subscribe(() => {
-    console.log('#')
     //获取真实的节点root，该节点在public文件夹的index.html文件；
     // 并将写好的组件挂到该节点(渲染虚拟DOM到页面)
     ReactDOM.render(<App/>,document.getElementById('root'));

@@ -4,6 +4,8 @@ import GitApp from "./gitUserInfo/GitApp";
 import SubAndSub from './gitUserInfo(pubSub)/GitApp'
 import UseFetchDemo from './gitUserInfo(useFetch)/GitApp'
 import ReduxApp from "./myRedux/ReduxApp";
+import ReduxApp_v2 from "./myRedux_v2/ReduxApp_v2";
+
 
 class App extends Component{
     render(){
@@ -22,7 +24,10 @@ class App extends Component{
                 {/*<UseFetchDemo/>*/}
 
                 {/*2021-10-28 redux案例*/}
-                <ReduxApp/>
+                {/*<ReduxApp/>*/}
+
+                {/*2021-10-28 redux案例(版本2)*/}
+                <ReduxApp_v2/>
             </div>
         )
     }
