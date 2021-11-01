@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import story from "./test_story/store";
 import {createIncrementAction,
         createDecrementAction,
-        createIncrementAsyncAction } from "./test_action/count_action";
+        createIncrementAsyncAction
+} from "./test_action/count_action";
 
 // https://www.bilibili.com/video/BV1wy4y1D7JT?p=102
 /** TODO 写了好几个redux版本(myRedux &v2 & v3)，当需要查看不同版本的效果时，

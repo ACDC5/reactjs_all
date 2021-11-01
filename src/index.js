@@ -6,6 +6,9 @@ import App from './App';
 import {Provider} from 'react-redux';
 import {store} from './redux/Index'*/
 
+//2021-10-27
+// import story from "./myRedux/test_story/story";
+
 //2021-10-28
 // import story from "./myRedux_v2/test_story/story";
 
@@ -25,9 +28,11 @@ import story from "./myRedux_v3_asyncAction/test_story/store";
 ReactDOM.render(<App/>,document.getElementById('root'));
 
 
-// 当reducer更新状态时，正常的加载应用
-//TODO 一劳永逸的办法，将reducer监听回调写在应用的入口文件，只要应用的某个状态改变，
-//TODO 整个应用的更新(不会有效率问题，react的diff算法只更新state改变的组件)
+/**redux只负责状态的管理，页面的更新需要自己去管；所以:reducer更新状态时(等于它发布了消息，
+而我们把监听写在应用入口处，用于订阅reducer的state发布/更新，从而触发相应页面的更新；)*/
+
+//TODO 一劳永逸的办法，将redux监听回调写在应用的入口文件，只要redux的某个状态改变，
+//TODO 就重新渲染App组件(不会有效率问题，react的diff算法只更新state改变的组件)
 story.subscribe(() => {
 
     //获取真实的节点root，该节点在public文件夹的index.html文件；

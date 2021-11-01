@@ -24,13 +24,17 @@ class App extends Component{
                 {/*2021-10-26搜索github用户案例(请求方式改为:fetch)*/}
                 {/*<UseFetchDemo/>*/}
 
+
+
+                {/* TODO 写了好几个redux版本(myRedux &v2 & v3)，当需要查看不同版本的效果时，*/}
+                {/*  需要在根index改变每个版本store的订阅*/}
                 {/*2021-10-28 redux案例*/}
                 {/*<ReduxApp/>*/}
 
                 {/*2021-10-28 redux案例(版本2_完整版)*/}
                 {/*<ReduxApp_v2/>*/}
 
-                {/*2021-11-1 redux案例(异步action)*/}
+                {/*2021-11-1 redux案例(v3_异步action)*/}
                 <ReduxApp_v3/>
             </div>
         )
