@@ -5,6 +5,7 @@ import SubAndSub from './gitUserInfo(pubSub)/GitApp'
 import UseFetchDemo from './gitUserInfo(useFetch)/GitApp'
 import ReduxApp from "./myRedux/ReduxApp";
 import ReduxApp_v2 from "./myRedux_v2/ReduxApp_v2";
+import ReduxApp_v3 from "./myRedux_v3_asyncAction/ReduxApp_v3";
 
 
 class App extends Component{
@@ -26,8 +27,11 @@ class App extends Component{
                 {/*2021-10-28 redux案例*/}
                 {/*<ReduxApp/>*/}
 
-                {/*2021-10-28 redux案例(版本2)*/}
-                <ReduxApp_v2/>
+                {/*2021-10-28 redux案例(版本2_完整版)*/}
+                {/*<ReduxApp_v2/>*/}
+
+                {/*2021-11-1 redux案例(异步action)*/}
+                <ReduxApp_v3/>
             </div>
         )
     }
