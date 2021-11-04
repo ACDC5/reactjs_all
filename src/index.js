@@ -13,7 +13,10 @@ import {store} from './redux/Index'*/
 // import story from "./myRedux_v2/test_story/story";
 
 //2021-11-1
-import story from "./myRedux_v3_asyncAction/test_story/store";
+// import story from "./myRedux_v3_asyncAction/test_story/store";
+
+//2021-11-3
+import story from "./myRedux_v4_react-redux/test_story/store";
 
 //react-redux只是大概了解学习了一下，没有动手写(P21-24)
 //被Provider包裹的组件都能获取到store中的state,

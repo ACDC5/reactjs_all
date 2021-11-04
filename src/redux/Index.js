@@ -22,7 +22,7 @@ export const store = createStore(
     reducer,
     //因为createStore只能传2参数，所以对浏览器的redux插件和
     // redux-thunk中间件用增强函数进行了包装
-    enhancer
+    // enhancer
     //使浏览器的redux插件生效
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
