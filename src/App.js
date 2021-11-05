@@ -40,10 +40,10 @@ class App extends Component{
                 {/*<ReduxApp_v3/>*/}
 
                 {/*2021-11-3 redux案例(终极完整版)*/}
-                <ReduxApp_v4/>
-                <hr/>
-                <br/>
-                <br/>
+                {/*<ReduxApp_v4/>*/}
+                {/*<hr/>*/}
+                {/*<br/>*/}
+                {/*<br/>*/}
 
                 {/* 2021-11-4 TODO react的扩展知识*/}
                 <ExtensionApp/>
