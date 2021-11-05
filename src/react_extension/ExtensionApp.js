@@ -6,6 +6,7 @@ import UseRefDemo from "./3_hooks/UseRefDemo";
 import FragmentDemo from "./4_fragment/FragmentDemo";
 import Exp_useContext from "../hooks/Exp_useContext";
 import ContextDemo from "./5_context/ContextDemo";
+import PureComponentDemo from "./6_pureComponent/PureComponentDemo";
 
 class ExtensionApp extends Component {
     render() {
@@ -35,6 +36,10 @@ class ExtensionApp extends Component {
 
                 {/*Context的使用*/}
                 <ContextDemo/>
+                <br/>
+                <hr/>
+
+                <PureComponentDemo/>
             </div>
         );
     }
