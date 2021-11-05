@@ -55,7 +55,7 @@ function UseEffectDemo() {
 
     return (
         <div>
-            <h1>当前求和为:{count}</h1>
+            <h1>[useEffect]当前求和为:{count}</h1>
             <button onClick={add}>点我+1</button>
             <button onClick={unmount}>卸载组件</button>
         </div>
