@@ -7,6 +7,7 @@ import FragmentDemo from "./4_fragment/FragmentDemo";
 import Exp_useContext from "../hooks/Exp_useContext";
 import ContextDemo from "./5_context/ContextDemo";
 import PureComponentDemo from "./6_pureComponent/PureComponentDemo";
+import RenderPropsDemo from "./7_renderProps/RenderPropsDemo";
 
 class ExtensionApp extends Component {
     render() {
@@ -40,6 +41,10 @@ class ExtensionApp extends Component {
                 <hr/>
 
                 <PureComponentDemo/>
+                <br/>
+                <hr/>
+
+                <RenderPropsDemo/>
             </div>
         );
     }
