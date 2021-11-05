@@ -1,6 +1,6 @@
 import React, {Component,PureComponent} from 'react';
 import './styles.css'
-
+//https://www.bilibili.com/video/BV1wy4y1D7JT?p=124
 class PureComponentDemo extends PureComponent {
 
     state = {carName:'奔驰c36'}
