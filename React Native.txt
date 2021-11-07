@@ -1,0 +1,1283 @@
+
+React：
+
+	跨域问题:
+	1、新建一个chrome快捷方式，打开属性在目标中加入命令参数
+	2、--disable-web-security --user-data-dir=C:\Program Files (x86)\Google\Chrome\Application
+
+	关于 npx react-native link命令的解释:
+	https://reactnative.cn/docs/linking-libraries-ios
+
+	npm start --启动react项目
+
+	解构赋值:
+		https://blog.csdn.net/HongZeng_CSDN/article/details/84724329
+		解构赋值，可以同时对一组变量进行赋值
+
+	使用WebStorm对ReactNative代码进行逐行调试:
+		来源:https://www.jianshu.com/p/3745e645526e?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation
+
+		实际操作:
+			1:进入WebStorm的Edit Configurations，弹出配置框
+			2:点击左上角的 + 按钮，选择React Native项
+			3:为当前配置取名;选择代码运行的平台(我的时android)
+			4:将 Build and launch application 的打勾去掉(勾选后选择平台，低级debug图标，webstorm将运行项目并进入debug模式(相当于一条龙服务))
+			5:将 Before launch:Start React Native Bundler,Activate tool window下的 Start React Native Bundler 项去掉
+			6:点击Apply或OK完成配置
+			7:npx react-native run-android 运行android平台
+			8:在WebStorm选中刚刚的配置后，点击Debug按钮进入调试模式
+			9:在虚拟机上调出菜单(Ctrl+M),选择debug。即可对代码进行调试
+
+
+	Hook：(https://zh-hans.reactjs.org/docs/hooks-intro.html)
+
+		0、Hook 是一些可以让你在函数组件里“钩入” React state 及生命周期等特性的函数。
+		Hook 不能在 class 组件中使用 —— 这使得你不使用 class 也能使用 React。（我们
+		不推荐把你已有的组件全部重写，但是你可以在新组件里开始使用 Hook。）
+
+		1、Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
+
+		2、在我们继续之前，请记住 Hook 是：完全可选的。 你无需重写任何已有代码就可以在一些组件中尝试 Hook。但是如果你不想，
+		你不必现在就去学习或使用 Hook。100% 向后兼容的。 Hook 不包含任何破坏性改动。现在可用。 Hook 已发布于 v16.8.0。
+
+		4、useEffect 就是一个 Effect Hook，给函数组件增加了操作副作用的能力。它跟 
+		class 组件中的 componentDidMount、componentDidUpdate 和 componentWillUnmount 具有相同的用途，只不过被合并成了一个 API
+
+		5、https://zh-hans.reactjs.org/docs/hooks-state.html文档写得很棒
+
+
+	组件区别:
+	1、使用function构建的组件(多用來展示UI)内部是没有state私有数据的，只有一个props用来接收外部传递过来的数据；即【无状态组件】
+		使用function构建的组件没有自己的生命周期函数(问题：函数组件是否有构造器,如何在函數組件使用構造器)；
+		没有state的称为简单组件，反之为复杂组件
+
+	2、使用class创建的组件(多用來寫業務邏輯)内部出了有this.props这个只读属性外，还有一个专门存放自己私有数据的this.state属性，这个this.state是可读写的。即【有状态组件】
+		使用class构建的组件有自己的生命周期函数
+
+
+	使用场景:
+		1、当需要存放自己的私有数据，或者需要在组件的不同阶段执行不同的业务逻辑，适合用有状态组件。
+
+		2、当只需要接收外部传过来的props，渲染固定的页面结构就完事，用无状态组件。性能会好一丢丢。
+
+	绑定this并传参(不适用于React？这是错误的，这里的笔记适用于es6，所以也包含react)：
+
+	import React from 'react'
+	...
+
+	 class Bin extends React.Compen..{
+	 	constructor(props) {
+	 		super(props)
+	 		this.state = {
+	 			mag:"我是默认参数",
+	 			uName:"",
+	 		}
+	 		//this.fun1 = this.fun1.bind(this) //等号右侧表示:将当前对象原型上fun1函数的this绑定为当前实例对象的this(即App实例)
+	 										   //等号左侧表示:bind()返回一个新的函数，这里的fun1可以任意名字，但一般都使用原名字，避免混淆
+	 	}
+
+	 	fun1() {
+	 		consoloe.log(this)
+	 	}
+
+	 	render(){
+	 		<h1>xxx</h1>
+
+	 		// bind函数的作用是为前面的函数修改了内部的this指向即指向bind的第一个参数，
+	 		//即当前对象。bind第一参数后面的所以参数都作为调用函数(changeMeg)的参数传入
+
+	 		//bind和call/apply的区别(call/apply改变了this的指向后会立即调用前面的函数，bind只会改变this指向)
+
+	 		//传参的第一种方式
+	 		<input ..but onClick={this.changeMeg.bind(this,'传参1','传参2')}/>
+
+	 		<h3>{this.state.mag}</h3>
+	 	}
+
+
+	 	changeMeg(arg1，arg2){
+	 	//如果这个函数没有被bind()绑定this,那这就是一个普通函数
+	 		console.log(this)//打印调用当前函数的对象实例
+	 	}
+
+
+	 	/**
+	 	changeMeg = () => {
+	 	//箭头函数(本身起上下文的作用),因此在被调用时这里的this是即代表了当前函数所在的对象(在哪里调用即代表哪个对象)
+	 		console.log(this)
+	 		
+	 		this.setState({
+	 			mag:'我更新了mag状态的值'
+	 		})
+	 	}
+	 	*/
+
+	 	/**
+	 	changeMeg (){
+	 	//普通函数,因此在被调用时这里的this是undefined(this作用域不明确)
+	 		console.log(this)
+	 	}
+	 	*/
+
+
+	 }
+
+
+	 2021-10-14(react全家桶) :
+
+	 https://github.com/ACDC5/reactjs_all(私库，可结合项目看)
+
+	 1、React不允许直接修改状态(state)
+	 	数据，需借助一个内置的API去更改:setState()
+
+	 2、render函数调用几次？
+	 	1+n次，组件初始化时调用一次，n是状态改变后调用render的次数
+
+	 https://www.bilibili.com/video/BV1wy4y1D7JT?p=18&spm_id_from=pageDriver(小知识点颇多，值得多看，第15和1-3也不错):
+
+	 	**//state的简写:
+			class App extend React.Comp{
+
+				 //重点:类里面可以直接写赋值语句:
+				 // let a = 1 报错，不允许
+
+				 // 但 b = 1 允许；相当于往类实例中添加属性，new出来的每个实例都将带有该属性
+
+				 //根据上面的代码，state也不一定要写在构造器中(实际开发也很少写在构造器中):
+				 //初始化state状态:
+				 	state = {isHot:false,wind:'微风'}
+
+				 //类似的其他知识:直接添加函数到类实例属性中:
+				 	myFun = function() {....}
+
+
+				 //static demo = 100 //往类本身加入demo属性(只有一份)；有别于上面的代码，上面的代码是将属性添加到类实例中
+
+
+				 render() {
+		    		return (
+		    				。。。
+		    			)
+		    		}
+			}
+
+		3、对props进行限制(类型检查)
+
+			class Person extends React{
+				...
+			}
+
+			//检查字段是否合法
+			Person.propTypes = {
+				//react 版本为15及以下时:
+				name.React.PropTypes.string//name必须时string类型
+
+				//react 版本16以上(需导入PropTypes):
+				name.PropTypes.string,//name必须时string类型
+				name.PropTypes.string.isRequired,//表示name是必传的
+				speak:PropTypes.func //speak必须是个函数
+
+			}
+
+			//为字段设置默认值:
+			Person.defaultProps = {
+
+				sex:'男' //性别没填时默认为 男
+			}
+
+
+		4、props只允许读不允许改
+			this.props.age = 'jack' //报错
+
+			//允许，这不叫修改，叫运算
+			<Text>姓名:{this.props.age+1}<Text/>
+
+			*其他知识:组件中所有的属性都保存在props中
+
+
+		5、props的简写方式(严格来说这节说的是传值类型、默认值的限制和设置)；
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=23
+			简而言之就是把propTypes类型限制和defaultProps默认值
+			从类的外侧移入到类的里面
+
+
+		6、react组件类构造器的作用：
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=24
+
+			1，声明this.state
+			2，bind(this)绑定函数this的值(实现这两点都可以不用到构造器,
+				有第三点的需求时，必将用到构造器)
+
+			3，想要在类组件中使用this.props时则需要这样用到构造器:
+				class AA extends react.xxx{
+					constructor(props){//接收传入组件的数据
+						super(props)//将数据传给父类的构造器
+					}
+
+					render() {
+						let {val} = this.props
+					}
+				}
+
+
+		7、函数式组件及其使用props属性(因为函数可以接收参数;新版本react的函数组件也可以使用state):
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=25
+
+
+
+		8、ref(不要过度使用ref):
+			8.1:字符串形式的ref(官方不推荐使用该方式，后续版本可能移除):
+				https://www.bilibili.com/video/BV1wy4y1D7JT?p=27
+
+				react组件内的标签可以定义ref属性来标识自己:
+				相当于html标签的id属性
+
+				class x extents react.xxx{
+					render() {
+						return(
+							<Text ref="toast" >xyz <Text/>
+							<Text ref="toast2" >xyz <Text/>
+							<Botton Press={this.showData}/>
+						)
+					}
+
+					使用:
+					showData = () => {
+						const {toast} = this.refs//拿到的是真实节点，不是虚拟的
+						alert(toast.value)//取出当前节点的值xyz
+						...
+					}
+				}
+
+
+			8.2：回调形式的ref
+
+				class x extents react.xxx{
+					render() {
+						return(
+							// c即当前Text节点(以实参方式传入匿名回调函数)；将当前节点取名为text1，
+							// 挂在当前组件实例中;
+							<Text ref={c = {this.text1 = c}} >xyz <Text/>
+							<Botton Press={this.showData}/>
+
+
+							//题外话:组件更新的时候会调用两次该回调函数(无关紧要的问题):
+								//https://www.bilibili.com/video/BV1wy4y1D7JT?p=29(13分钟左右)
+								//解决:不要写内联函数，写类绑定的函数(即在类中定义一个箭头函数,其参数即为目标
+								标签or组件)
+						)
+					}
+					
+					使用:
+					showData = () => {
+						const {text1} = this //取出想要节点(拿到的是真实节点，不是虚拟的,可以对节点进行各种操作)
+						alert(toast.value)//取出当前节点的值xyz
+						...
+					}
+				}
+
+
+			8.3:createRef API
+				https://www.bilibili.com/video/BV1wy4y1D7JT?p=30
+
+				class x extents react.xxx{
+
+					//React.createRef调用后可以返回一个容器，该容器可以
+					//存储被ref所标识的节点(组件)，该容器只能存一个ref；
+					//添加多个ref到容器时，只输出(得到)最后一个添加的ref；
+					//若有多个ref时，调用多次React.createRef()来分别存储它们
+
+					//1、创建ref容器，挂在实例身上
+
+					myRef = React.createRef()
+
+					render() {
+						return(
+							//2、将当前标签/组件放入ref容器
+							<Text ref={this.myRef} >xyz <Text/>
+							<Botton Press={this.showData}/>
+						)
+					}
+
+					使用:
+					showData = () => {
+						//3、获取容器中标签(组件)的值
+						alert(this.myRef.current.Value)//输出xyz
+						...
+					}
+
+				}
+
+
+		9、非受控组件:
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=33
+
+			即数据现用现取
+
+
+		10、受控组件:
+			输入类的数据，被维护到state中，该组件就是受控组件，
+			想要使用数据都得通过state或setState
+
+
+		11、高阶函数和函数柯里化(很重要的基础，很实用)
+			因为是js的知识，所以补充描述到了JS.txt的281行
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=35
+
+			高阶函数:
+				如果一个函数符合下面2个规范中的任何一个，那该函数就是高阶函数
+				1.若a函数，接收参数是一个函数，那么a就可以称为高阶函数
+				2.若a函数，调用的返回值依然是一个函数，那么a就可以称为
+				  高阶函数；
+
+				常见的高阶函数:Promise/setTime/arr.amp()等
+
+
+			函数柯里化:
+				通过函数调用继续返回函数的方式，实现多次接收参数最后统一
+				处理的函数编码形式
+
+
+		12、组件生命周期
+			1组件从创建到死亡的特定阶段
+			2react组件包含一系列钩子函数(生命周期回调函数),会在特定时刻调用
+
+			画了Visio图
+
+
+		13、react DOM的diffing算法
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=48
+			面试题:
+
+				1、react/vue中循环是的key有什么作用?key的内部原理是什么
+
+					1) 简单的说，key是虚拟DOM对象的标识，在更新显示时key起着
+						极其重要的作用
+
+					2) 详细的说，当状态中数据发生变化时，react会根据'新数据'
+						生成'新的虚拟DOM',随后react进行'新虚拟DOM'与'旧虚拟
+						DOM'的diff比较，比较规则如下:
+							a.旧虚拟DOM中找到了与新虚拟DOM相同的key:
+								(1)若虚拟DOM中内容没变，直接使用之前的真是DOM
+								(2)若虚拟DOM中内容变了，则生成新的真是DOM
+									随后替换掉页面中之前的真实DOM
+
+							b.旧虚拟DOM中未找到与新虚拟DOM相同的key，根据
+								数据创建真实DOM，并渲染到页面
+
+							*先对比虚拟DOM的key，key相同后进一步比较虚拟DOM 的内容==只要一样不同即更新真实DOM
+
+
+				2、用index作为key可能会引发的问题
+					1.若对数据进行:逆序添加、逆序删除等破环顺序操作:
+						会产生没有必要的真实DOM更新==界面效果没问题，但效率低
+
+					2.如果结构中还包含输入类的DOM，会产生错误DOM更新==界面
+						有问题
+
+					3.注意，如果不存在对数据的逆序添加等破坏顺序性操作，仅
+						用于渲染列表用于展示，使用index作为key是没有问题的
+
+				3、开发中如何选择key:
+					1.最好使用每条数据的唯一标识作为key，比如id 手机号、身份证等
+					2.如果确定是简单的数据展示，不用index也是可以
+
+
+		14、初始化react脚手架
+			react提供了一个用于创建react项目的脚手架 create-react-app
+			...balabala
+
+		14、 如何区分组件
+				1、首字母大写的.js文件
+				2、后缀为.jsx的文件  
+					以上都是react组件，在引入上述组件时，可以不用
+					写后缀(在react脚手架中js和jsx文件都不需要写后缀)
+
+
+		15、向父组件传值和子组件向父、爷组件传值
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=58 6分钟开始
+			兄弟组件的传值:在没学redux前，可以将兄弟组件的数据都放在他们的
+			父组件上，谁需要就传给谁
+
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=60 6m35s开始
+			三个嵌套组件(父子孙)，孙组件要改变父组件的状态，来实现
+			孙组件的页面效果
+
+
+		16、小技巧(替换旧对象中的值):
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=60
+			10m开始 2倍速
+
+			let obj = {a:1,b:2}
+
+			let obj2 = {...obj,b:3} //复制一份obj，并将其中的b改为3
+
+			log(obj2) //输出{a:1,b:3}
+
+
+			*状态在哪里，操作状态的方法就在哪里(方法不一定在当前组件用，可以
+			 传给其他组件调用)
+
+
+		17、TodoList案例总结
+
+			静态组件:只展示数据，没有交互的组件；
+			实现静态组件:即先将页面的样子写出来，然后在实现数据交互
+
+			如何确定将数据放在哪个组件的state中？
+				-某个组件使用，放在其自身的state中
+				-某些组件使用，放在他们共同的父组件state中(官方称此操作为:状态提升)
+
+				-使用消息订阅&发布技术后，就可以谁的state就放在谁的组件中
+
+
+			关于父子之间的通信:
+				1.父组件给子组件传递数据:通过props传递
+				2.子组件给父组件传递数据:通过props传递，要求父提前给
+					子传递一个函数
+
+			注意html input标签的defaultchecked(只在第一次起作用)
+			和checked的区别，类似的还有:defaultValue和value
+
+
+			状态在哪里，操作状态的方法就在哪里
+
+
+		18、跨域和脚手架代理的配置
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=65
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=66
+
+		19、额外的知识点
+			连续解构赋值:
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=68 从5min开始
+
+			------
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=66
+			jsx里不能写判断语句，只能写判断表达式(if是语句，三元..是表达式)；
+			需要注意js表达式和js语句的区别
+
+		20、搜索github用户信息的案例:
+			https://github.com/ACDC5/reactjs_all/tree/master/src/gitUserInfo(私库)
+
+
+		21、兄弟组件间的通信(传值) 
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=71
+
+			练习:
+				https://github.com/ACDC5/reactjs_all/tree/master/src/gitUserInfo(pubSub)
+			1、消息订阅和发布技术:
+				理解:类似订阅报纸，订了报纸，就会有人派送(数据)报纸
+				使用第三方包pubsub-js；
+				概念:
+					1.谁需要接收数据就在其组件中订阅消息,发布消息则是另一个组
+						件 ，从而实现同级组件的传值
+
+					2.订阅和发布不仅适用与于兄弟组件的通信，任何组件间的数据
+						通信都适用(没有组件层级的限制)
+
+
+		22、扩展知识:原生的fetch:
+			实际开发中很少用到fetch
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=72
+
+			练习:
+				https://github.com/ACDC5/reactjs_all/tree/master/src/gitUserInfo(useFetch)
+
+			fetch请求,fetch符合‘关注分离原则’，在fetch表现为:第一步先联系服
+        	务器(这一步是不能直接拿到相应数据的)，第二步再获取数据
+
+        	特点:js原生函数，不再使用XmlHttpRequest对象提交ajax请求
+        	缺点:老版本浏览器不支持
+
+
+
+        23、总结github搜索案例，共3个版本
+        	https://www.bilibili.com/video/BV1wy4y1D7JT?p=73
+
+
+        24、props冷门知识
+        	1:
+        	https://www.bilibili.com/video/BV1wy4y1D7JT?p=80 从13m45s开始
+        	<父 a=1 b=2 > 标签内容 <父/>
+
+        	const {a,b} = this.props
+
+        	//标签之间的内容其实也被收集到了props中，children是react给标签内容的默认key
+        	<子 name={a},age={b}, text={this.props.children}/>
+
+
+        	2:
+        	通过this.props.children可以获取组件标签的内容:
+
+        	如果父组件传了非常多的属性，子组件要接收传过来的属性，并将其作为自己的属性，应该怎么接收？
+        	https://www.bilibili.com/video/BV1wy4y1D7JT?p=80 从8m35s开始
+
+        		//将父组件传过来的props对象，直接解构展示在子组件中，
+        		//因为props是key-value结构，所以将所有父组件传过来的
+        		//属性直接变为了子组件自身的属性和值:
+
+        		<子组件 {...this.props}/>
+
+
+        25、react路由(react使用react-route；RN使用react-navigation等--他们不一样)
+        	https://www.bilibili.com/video/BV1wy4y1D7JT?p=74
+        	SAP理解：
+        		单页面应用:SAP(single page web application)
+
+        	react-router这个库有三种(分支库)实现,分别是web(网页)，
+        	native(用于RN)，any(在哪都能用);
+
+        	web开发人员使用的是react-router-dom库
+
+
+        	react是单页面多组件的
+
+        	react路由和RN的导航不同，也没有讲RN路由相关的知识；
+        	所以75-93集没有仔细看
+
+        
+
+
+        26、antd:
+        	没看 94-96集
+
+
+        27、redux(这个库不是脸书推出的)
+
+        	安装 npm i redux 
+
+        	作用:集中式管理react应用中多个组件共享的状态；
+        		 当某个状态需要共享时，可以将其交给redux管理。
+        	1.redux是一个专门用于状态管理的js库(不是react插件库)
+        	2.它可以用在react，angular，vue等项目中，但基本和react配合使用
+
+
+        	什么时候用:
+        		1、某个组件的状态需要让其他组件可以随时拿到(共享)
+        		2、一个组件需要改变另一个组件的状态(通信)
+        		3、总体原则：能不用就不用，如果不用比较吃力才考虑使用
+
+
+        	求和案例继续完善中:
+        		https://www.bilibili.com/video/BV1wy4y1D7JT?p=101
+
+        		用箭头函数直接返回一个对象:
+
+        		错误示范:
+        			//这里的花括号编译器认为是函数体的花括号，
+        			//不是对象的花括号
+        			const func1 = b => {data:b}
+
+        		正确示范:
+        			const func1 = b => { return {data:b}}
+
+        			高手写法:
+        			const func1 = b => ({data:b})
+
+
+        		案例地址:https://github.com/ACDC5/reactjs_all/commit/3c1c0741755d513274f6fda9d3abf31e868d9d09
+
+
+        	redux的异步action:
+        		https://www.bilibili.com/video/BV1wy4y1D7JT?p=102
+
+        		如果action返回的是一个一般对象，则是同步action；
+        		如果action返回的是一个函数，则该action称为异步action；
+
+        		备注:异步action不是必需要写的，完全可以自己等待异步任务的
+        			 结果再去分发同步的action
+
+        		使用场景:
+        			1、延迟的动作不想交给组件自身，想交给action；
+        			2、想要对状态进行操作，但是具体的数据靠异步任务返回(非必需)
+
+        	具体编码:
+        		-需要使用到redux-thunk中间件库，并配置在store中
+
+        		-创建action的函数不再返回一般对象，而是一个函数，
+        		 该函数中写异步任务
+
+        		-异步任务有结果后，分发一个同步的action去真正的操作数据。
+
+
+
+        28、react-redux(脸书推出的库);该库就是为了redux而生的，
+
+        	https://www.jianshu.com/p/c3e6aa8f0b3b
+
+           所以react-redux完全可以在redux的配置上使用
+
+        	安装 npm i react-redux 
+
+       		1、所有的UI组件都应该被一个容器组件包裹，他们是父子关系
+       		2、容器组件是真正和redux打交道的，容器组件可以随意使用redux的api
+       		3、UI组件中不能使用任何redux的api
+       		4、容器组件会传给UI组件:
+       			A:redux中所保存的状态。
+       			B:用于操作方法的状态。
+
+       		5、备注:容器给UI传递:状态、操作状态的方法，均通过props传递
+
+       		connet()()返回的就是一个容器组件，第二个括号就是(UI组件)
+
+
+
+       	29、求和案例_react-redux基本使用:
+
+       		https://www.bilibili.com/video/BV1wy4y1D7JT?p=105
+
+
+       		总结和优化案例:
+       			https://www.bilibili.com/video/BV1wy4y1D7JT?p=106
+
+       			1、明确两个概念:
+       				1)UI组件:不能使用任何redux的api，只负责页面的呈现和交互
+       				2)容器组件:负责和redux通信，将结果交给UI组件
+
+       			2、如何创建一个容器组件:靠react-redux的connect函数
+
+       				*重点:connect()()会返回一个容器组件
+
+       				connect(mapStateToProps,mapDispatchToProps)(UI组件)
+
+       				mapStateToProps:映射状态，返回值是一个对象
+       				mapDispatchToProps:映射操作状态的方法，返回值可以是一个
+       				函数，也可简写为一个对象
+
+       			3、备注:容器组件中的store是靠上层组件传入的，而不是在容器组件
+       				   中直接引入store(参考本文件30 Provider)
+
+
+       		connect(...)(UI):一个括号的返回值，会立即去调第二个括号(立即执行函数)；connect最终返回的就是一个容器组件
+
+       		*容器组件可以拿到所有reducer的状态
+
+
+       	30、Provider组件的使用:
+
+       		https://www.bilibili.com/video/BV1wy4y1D7JT?p=107
+
+
+       		react-redux的connect(..)()就默认拥有了监测redux状态更新的能力，
+       		reducer的状态更新后，就会执行connet(newState,funToState)(UI)
+       		第一参数(获取新状态的函数);
+       		不用在写store.subscription(..)去检测状态的更新
+
+
+       		被Provider组件包裹的组件都能根据reducer中状态的更新而更新
+       		<Provider store={store}>
+       			<App/>
+       			<Navg/>
+       		</Provider>
+
+
+       	31、整合UI组件和容器组件(RN_WanAndroid项目就是UI和容器写在一个文件中)
+
+       		https://www.bilibili.com/video/BV1wy4y1D7JT?p=108
+
+       		a、容器组件和UI组件整合成一个文件
+       		b、无需自己给容器组件传递store，给<App/>包裹一个
+       			<Provider store={store}>即可
+
+       		c、使用了react-redux后也不用再自己监测redux中状态的改变了，容器
+       		  组件可以自动完成这个工作
+
+       		d、mapDispatchToProps也可以简单写成一个对象
+
+       		e、一个组件要和redux打交道要经过几步:
+       			1、定义好UI组件
+       			2、引入connect函数生成一个容器组件，并暴露，写法如下:
+       				connect(state => ({key:value}),
+       						{key:xxAction})(UI组件)
+
+       			3、在UI组件中通过this.props...读取状态和操作状态
+
+       			
+
+
+       	32、使用redux让多个组件共享状态
+       		https://www.bilibili.com/video/BV1wy4y1D7JT?p=111
+
+
+
+       	33、纯函数
+
+       		https://www.bilibili.com/video/BV1wy4y1D7JT?p=112
+
+       		redux的reducer函数必需是个纯函数,所以reducer中返回状态都是用:
+
+       			reture [newState,...preState] 这样返回的是一个新数组(因此该数组内存地址值也是新的)
+
+       			若使用以下方式，状态更新会失败，这会导致preState被改写了，
+       			其所在的reducer函数就会变成非纯函数；
+
+       			(同时preState数组内存地址值依旧，而redux会对返回的数组进行浅比较，
+       			 当返回的preState数组地址和之前的是一样的，它就不进行页面的更新)
+
+       			return preState.unshift(newState) //错误写法
+
+
+
+       		什么是纯函数:
+       			a、一类特别的函数，只要是同样的输入(实参)，
+       			  必定得到同样的输出(返回)
+
+       			b、必需遵守以下一些约束:
+       				1) 不得改写参数数据；
+       				2) 不会产生任何副作用,例如网络请求，输入和输出设备
+       				3) 不能调用Date.now()或Math.random()等不纯的方法
+
+
+
+       	34、redux开发者工具及其配置
+       		https://www.bilibili.com/video/BV1wy4y1D7JT?p=113
+
+       		教程配置和我其他教程的项目配置有区别，我的项目中不需要安装安装
+       		第三方库，就能使redux开发工具在浏览器生效； 项目:pro_react
+
+
+       		*对象的简写形式:
+		  	 {home:home} 可写成 {home}//当对象的key:value同名，可以只写一个
+
+
+		35、项目打包运行
+			https://www.bilibili.com/video/BV1wy4y1D7JT?p=115
+
+
+		35、react扩展知识:
+
+			a、setState的两种用法:
+
+				setState是同步的(官网说是异步的一个意思)，但它执行完后导
+				致了一些底层的异步动作，所以想在更新后马上看到最新的状态，需要在其第二个参数回调中去查看
+
+				之前写过的小项目中有用到这个技术(在Home.js文件)
+				https://github.com/ACDC5/RN-txClass/tree/main/src/pages
+
+				写法1(对象式的setState):
+					1、setState(stateChange,[callback])
+					2、stateChange为状态改变对象
+					3、callback是可选的回调函数，她在状态更新完毕后，界面
+					   也更新后(render调用后)才被调用
+
+				写法2(函数式的setState):
+					1.setState(updater,[callback])
+					2.updater返回stateChange对象的函数
+					3.第二参数同上
+
+				总结:对象式的的setState是函数式的setState的简写方式(语法糖)
+
+					 使用原则:
+					 	-如果新状态不依赖于原状态 ==》使用对象方式
+					 	-如果需要在setState执行后获取最新的状态数据，
+					 	 要在第二个callback函数中读取
+
+				setState的callback是可选的回调函数，他在状态更新完毕后、
+                界面也更新后(render调用后才被调用，相当于ComponentDidup
+                date函数的作用，即组件状态更新后立即去做某些事情
+
+
+            b、lazyLoad(懒加载)：
+
+            	懒加载概念:用的时候才加载，不用不加载
+
+            	一般大项目是必需要用到懒加载的
+
+            	react路由组件用懒加载比较多
+
+            	粗略过
+
+
+            c、Hooks(叉子)
+
+            	Hook是react16.8.0版本增加的新特性/新语法
+            	可以使开发者在函数式组件中使用state以及其他的react特性
+
+            	三个常用的hook:
+            		1.State Hook: React.useState()
+
+            			使用该api可以在函数式组件种使用状态
+
+            			useState返回2个数组元素，第一个为状态当前值，
+            			第二个为更新状态值的函数
+
+            			案例:
+
+
+            		2.Effect： React.useEffect()
+
+            			(1)useEffect可以在函数组件中执行副作用操作(即用
+            				于模拟类组件中的生命周期钩子)
+
+            			(2)react中的副作用操作:
+            				发送ajax请求，设置订阅/启动定时器，手动该真DOM
+
+            			(3)语法说明
+
+            			(4) 可以把useEffect看做如下三个函数的组合
+            				componentDidMount()
+            				componentDidUpdate()
+            				componentWillUnmount()
+
+
+            		3.Ref Hook: React.useRef()
+
+            			useRef()可以在函数组件中存储/查找组件内的标签
+            			或任意其他内容数据
+
+            			作用:报存标签对象，功能与React.createRef()一样
+
+
+            d、Fragment
+
+            	Fragment相当于空标签<></>；他们的区别在于
+             	Fragment可传入key属性，空标签不能传入任何属性
+
+            	使用: 
+            		<Fragment><Fragment/>
+
+
+            	作用；
+            		可以不用必须有一个真实的DOM根标签了
+
+
+
+            e、Context
+            	https://www.bilibili.com/video/BV1wy4y1D7JT?p=122
+
+            	一种组件间通信方式，常用于'祖组件'与'后代组件'间的通信;
+
+            	作用:跨组件通信/传值
+	            	有组件a、b、c、d
+	            	Context最常用与a组件和c、d组件的通信，当然也可以和b组件
+	            	通信；但b组件有更快捷的方式(this.props)
+
+
+	            使用:
+	            	1、创建Context容器对象:
+	            		const MyContext = React.createContext()
+
+
+	            	2、渲染子组件时，对外面包裹MyContext.Provider，通过
+	            	  value属性给后代组件传递数据:
+
+	            	  <MyContext.Provider value={数据}>
+	            	  	子组件
+	            	  </>
+
+	            	3、后代组件读取数据：
+	            		第一张方式-仅适用于类组件
+
+	            			//声明接收context，哪个组件要用就要在该组件声明
+	            			// 否则无法拿到数据
+	            			static contextType=MyContext
+
+	            			//读取context中的value数据
+	            			this.context
+
+
+
+
+	            		第二种方式-函数组件和类组件都可以
+
+	            			<xxContext.Consumer>
+	            				{
+	            					value => { 此参就是context中的val数据
+	            						要显示的内容
+	            					}
+	            				}
+	            			</xxContext.Consumer>
+
+	            	注意:
+	            		在应用的开发中一般不用context，
+	            		一般都用它的封装react插件
+
+
+           f、PureComponent
+
+           		https://www.bilibili.com/video/BV1wy4y1D7JT?p=123
+
+           		用于组件的优化
+
+           		Component的2个问题:
+           			1.只要执行setState()即使不改变状态数据，组件也会
+           			  重新render()
+
+           			2.只要当前组件重新render(),就会自动重新
+           			  render子组件，纵使子组件没有用到
+           			  父组件的任何数据==》效率低
+
+
+           		效率高的做法:
+           			只有当组件的state或props数据发生改变时才重新render
+
+
+           		原因:
+           			Component中shouldComponentUpdate()总是返回true
+
+
+           		解决:
+           			1.重写shouldComponentUpdate方法，比较新旧state或
+           			  props数据，如果变化才返回true，如果没有返回false
+
+
+           			2.使用PureComponent:
+           			  PureComponent重写了shouldComponentUpdate方法，
+           			  只有state或props数据有变化时才返回true
+
+
+           			注意:
+           				PureComponent只是进行state和props数据的浅比较，如果只是数据
+           			     对象内部变了，返回false；不要直接修改state数据
+           			     ，而是要产生新的数据
+
+           			浅比较:只对比两个变量在堆中的地址值，而不管变量中的内容是否一致
+					深比较:即要两个变量的地址值一致，也要他们的内容一致
+
+
+
+			g、renderProps
+
+				https://www.bilibili.com/video/BV1wy4y1D7JT?p=124
+
+				如何向组件内动态传入带有内容的结构(标签)？
+
+					1.使用childer props - 通过组件标签体传入结构:
+						<a>
+							<b>xxx</b>
+						</a> 
+						在b组件内可以通过this.props.childer拿到xxx
+
+						问题:如果b组件需要a组件的数据，==》做不到
+
+
+					2.使用render props - 通过组件标签属性传入结构，一般
+					   用render函数属性
+
+					   	<A render={data => <CC name={data}/>} />
+
+					   	A组件:{this.props.render(当前组件的state数据)}
+					   	
+					   	C组件:读取A组件传入的数据显示{this.props.data}
+
+
+
+
+			h、错误边界(ErrorBoundary)
+
+				https://www.bilibili.com/video/BV1wy4y1D7JT?p=125
+
+				大概讲了下打包
+
+				理解:用来捕获后代组件的错误，渲染除备用页面
+
+				
+				特点:只能捕获后代组件生命周期(如子组件的render)产生的
+					 错误，不能捕获自己组件产生的错误和其他组件在合成
+					 事件、定时器中产生的错误
+
+
+				使用:
+					getDerivedStateFromError配合componentDidCatch(后者不是必须的)
+
+					//生命周期函数，一旦子组件报错，就会触发
+					static getDerivedStateFromError(error) {
+				        console.log('父:我的子组件出错了',error)
+
+				        //在render之前触返回新的state
+				        return {hasError:error}
+				    }
+
+
+				作用:
+					防止错误扩散，以免影响其他组件的渲染
+
+
+				开发环境:在写代码时的环境
+				生产环境:经过编译打包和压缩代码，被放在服务器上时(react打包
+						 的命令，npm run build》这回产生一个build文件，将该
+						 文件部署到服务器后，该服务器就是生产环境)
+
+
+
+			i:组件通信方式总结：
+
+				组件间的关系:
+					·父子组件
+					·兄弟组件(非嵌套-平级组件)
+					·祖孙组件(跨级组件)
+
+				几种通信方式:
+					1 props
+						·children props
+						·render props
+
+					2 消息订阅
+						·pubs-sub、event库等等
+
+					3 集中式管理
+						·rendux、dva等等
+
+					3 context
+						·生产者-消费者模式
+
+
+				比较好的搭配方式:
+					父子组件用:props
+					兄弟组件:消息订阅-发布、集中式管理
+					祖孙组件(跨级):消息订阅-发布、集中式管理、context(开发用的少,封装插件用的多)
+
+
+
+
+
+
+
+
+
+
+
+
+        	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+
+
+
+			
+
+			
+
+
+
+
+
+
+
+
+
+
+
+	在componentDidMount调用数据才会将数据挂载到页面中。componentDidMount方法中的代码，是在组件已经完全挂载到网页上才会调用被执行，所以可以保证数据的加载。此外，在这方法中调用setState方法，会触发重渲染。所以，官方设计这个方法就是用来加载外部数据用的，或处理其他的副作用代码。
+
+	constructor被调用是在组件准备要挂载的最一开始，所以此时组件尚未挂载到网页上。
+
+	componentWillMount方法的调用在constructor之后，在render之前，在这方法里的代码调用setState方法不会触发重渲染，所以它一般不会用来作加载数据之用，它也很少被使用到。
+
+	一般的从后台(服务器)获取的数据，都会与组件上要用的数据加载有关，所以都在componentDidMount方法里面作。虽然与组件上的数据无关的加载，也可以在constructor里作，但constructor是作组件state初绐化工作，并不是设计来作加载数据这工作的，所以所有有副作用的代码都会集中在componentDidMount方法里。
+
+
+	箭头函数:
+		1、箭头函数一个重要的好处就是对于this对象指向问题，在普通函数中this对象的指向是可变的，
+			所以在普通函数中this对象可能会存在null的情况，但是箭头函数中this是固定的。
+
+		2、箭头函数的this指向定义时所在对象的作用域而不是使用时的。
+
+		3、使用箭头函数，因为在ES6中，箭头函数是自己的this值的，所以箭头函数内的this值继承自外围作用域(固定)，因此，在箭头函数中是可以直接使用this的
+
+		在普通函数中，this的指向在函数创建的时候是决定不了的，在调用的时候才能决定，谁调用的就指向谁，一定要搞清楚这个。
+
+	在一个普通函数内调用一个匿名函数，调用时只需要写好被调用的函数名即可，无需用到this关键字:
+		func cc(){
+			<Button onPress={Go}>
+
+			const Go = () => {
+				...
+			}
+		}
+
+
+	提取组件可能是一件繁重的工作，但是，在大型应用中，构建可复用组件库是完全值得的。根据经验来看，如果 UI 中有一部分被多次使用（Button，Panel，Avatar），或者组件本身就足够复杂（App，FeedStory，Comment），那么它就是一个可复用组件的候选项。
+
+
+
+redux:
+
+
+
+
+-----------------------------------------------------
+
+React
+
+	1. npm install --在项目中安装项目所需的node-modules
+	2. npm react-scripts --安装reactjs
+	3. npm start --启动项目
+
+	node.js 构建react官方开发、调试环境
+	1 cnpm install create-react-app -g #npm安装react构建工具到全局
+
+	2 create-react-app demo	#在命行的运行目录运行构建工具构建一个react项目开发环境
+
+	3 cd demo && npm start	#进入项目并用npm命令启动项目
+
+	4 localhost:3000	#chrome打开url运行
+
+	npm install #安装项目文件packages.json中的依赖到项目
+
+
+	已安装nvm；nvm install name;切换版本nvm use 12.11,卸载nvm uninstall name,
+	djapp使用node版本12.13
+	RNdemo使用8.9
+	----------------------------------------------
+
+react-native:
+
+	npx react-native init ProjectName 创建项目(会自动下载好模板、脚手架等)
+
+	#####
+	npm是一个node package安装工具。
+	npx的作用是先检查本地有没有安装某个package，如果没有去远程registry找，找到的话直接使用，
+	不用下载到本地node-modules包里面，这样就能优化本地项目的大小，也可以避免安装package到全局。
+	#####
+
+	*如果android虚拟设备真正运行时进行install操作，有可能导致第三方库安装失败
+
+	cd 项目
+
+	npx react-native run-android 运行应用。也可以在 Android Studio 中直接运行应用
+
+	npm install xxx  --安装到node_model但不写入package.json；
+
+	npm install -g xxx  --利用npm安装全局模块xxx；
+
+	npm install xxx –save  --安装并写入package.json的”dependencies”中(即生产环境依赖的包)；
+
+	npm install xxx –save-dev  --安装并写入package.json的”devDependencies”中(开发环境需要的依赖)
+
+	npm install  --save name@1.0.0  --指定版本
+
+	---
+	npm uninstall xxx  --删除xxx模块；
+	npm uninstall -g xxx  ---删除全局模块xxx；
+
+	npm的规则是，npm包不能不能以大写字母开头
+
+
+	----------------------------------------------
+	run into error：
+
+	1、<号不能写在js 文件中，需要加“”
+
+
+	C:\Program Files\nodejs\       version 12.13
+
+
+	--------------------------------------------
+	react-navigation4.x
+
+	1、只要当前页面有导入rNavigation，就能通过this.props获取到navigation.xxx方法
+
+	2、navigate跳转到指定页后再跳转到同一个页面不会有反应
+
+	3、push跳转到页后再跳转到同一个页面，回进行压栈操作，即不断的进入当前的页面，返回时得一层一层返回。
+
+	4、goBack返回上一级，无需传参
+
+	5、popToTop回到首页 booker
+
+
+
+	phonegap：
+
+		安装phonegap CLI
+		图形界面安装后无法使用
+		npm install -g phonegap
+		npm install -g cordova
+
+
+		1、phonegap create myApp(myDJ) 创建项目
+
+		2、进入项目
+
+		3、cordova platforms add Android 创建的Android/ios项目结构(如果在platforms下没有android的话)
+
+		4、phonegap serve 启动项目(出来三个地址，最后一个为手机端地址)
+
+		**提示：(手机端)可以在预览应用程序时使用手势。三指点击将返回主屏幕，四指点击将导致刷新。
+
+
+		从以下受支持的应用程序市场之一中找到免费的PhoneGap Developer应用程序，并将其安装到您的移动设备上：
+
+		Google Play
+		Windows Phone商店
+		〜iTunes〜目前不可用，但您仍然可以自己构建！(无效连接)
+
+
+	expo:
+		一般情况下使用最新的node
+		npm install expo-cli --global  #获取expo命令行
+
+		1、expo init proName  #创建expo项目
+		2、choose template
+		3、npm install
+		4、expo start
+
+
+		可用真机扫描浏览器中的二维码查看构建的内容， 也可在页面上选择连接模式为LAN(局域网)，然后点击run android/ios虚拟器
+
+
+		问题:
+			1、如果需要用到expo没有的需要添加第三方react native组件（需要react-native link的组件），可以方便一行代码把expo项目eject成react native项目并集成expokit（不可逆），不影响之前使用expo内置组件的代码运行，同时可以继续使用expo提供的组件。
+			实在需要react native的庞大三方组件，大不了就 
+			$expo eject
+
+			您说您正在使用Expo。它仍然是React Native，已经扩展了很多NativeModules，但是为了按其工作方式工作，它是“封闭的”，
+			这意味着您不能添加任何其他第三方功能。为了扩展Expo，您必须“弹出(expo eject)”它，这意味着将项目提取到标准React Native应用中。
+			*弹出:弹出的话就脱离了沙盒环境，等于于一个用cli创建的rn项目了（所以你得先配好环境），然后也不能再使用expo的app了
+
+
+			2、如何分享我的Expo项目？是否可用提交到app stores？
+				最快的分享Expo项目的方式是去发布它。您可以通过点击XDE中的Publish或者在项目中运行exp publish，它将会生成一个URL；您可以分享该URL给拥有Expo客户端的任何人，他们可以立即打开您的app。
+
+			使用fetch发起post报错TypeError: Network request failed:
+				可能ios/android需要配置网络权限
+		
+	组件布局:
+		FlexBox：（很常用,比如给View的内容设置排列方式时）
+			flexDirection：'row', 设置主轴方向
+
+			justifyContent:'center', 设置横轴的对齐方式
+
+			alignItems:'baseline' 设置纵轴的对齐方式
+
+			flexWrap:'warp' 当内容显示不下时自动换行
+
+			flex:'1' 当前元素在父容器的空间占比,只有一个子元素在容器中且属性值为1，默认
+			子元素占满整个父元素；当父容器中有多个子元素时，根据值的大小分配权重空间
+
+
+		ScrollView：
+			两个要点:
+				a\ScrollView必须要有一个确定的高度才能正常工作
+					1、不建议直接给SV置高度,可以给里面的内容设置高度。
+					2、SV中不要加flex：1。
+				b\ScrollView内部的其他响应者尚无法阻止ScrollView本身成为响应者
+
+				contentContainerStyle 这是SV的样式
+
+				horizontal:'true' 设置SV内容的排列方式
+	
