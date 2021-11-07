@@ -16,7 +16,7 @@ class PureComponentDemo extends PureComponent {
 
     change = () => {
         //这里setState得到的是一个新对象
-        this.setState({carName: '111'})
+        this.setState({carName: '迈巴赫'})
 
         /**注意:在继承PureComponent的组件中，这样写将无法更新状态
          * ，因为自始至终this.state和setState()操作的都是
