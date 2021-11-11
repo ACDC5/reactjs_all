@@ -49,6 +49,7 @@ class ExtensionApp extends Component {
                 <br/>
                 <hr/>
 
+                {/*错误边界*/}
                 <Parent/>
             </div>
         );

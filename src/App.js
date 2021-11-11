@@ -8,6 +8,7 @@ import ReduxApp_v2 from "./myRedux_v2/ReduxApp_v2";
 import ReduxApp_v3 from "./myRedux_v3_asyncAction/ReduxApp_v3";
 import ReduxApp_v4 from "./myRedux_v4_react-redux/ReduxApp_v4";
 import ExtensionApp from "./react_extension/ExtensionApp";
+import MyAxios from "./myAxios/MyAxios";
 
 
 class App extends Component{
@@ -47,6 +48,12 @@ class App extends Component{
 
                 {/* 2021-11-4 TODO react的扩展知识*/}
                 <ExtensionApp/>
+                <hr/>
+                <br/>
+                <br/>
+
+                {/* 2021-11-11 TODO axios课程*/}
+                <MyAxios/>
             </div>
         )
     }
