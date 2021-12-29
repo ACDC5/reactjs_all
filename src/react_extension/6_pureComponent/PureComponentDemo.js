@@ -15,7 +15,7 @@ class PureComponentDemo extends PureComponent {
     // }
 
     change = () => {
-        //这里setState得到的是一个新对象
+        //第一次点击按钮时，这里setState得到的是一个新对象(即更新的值跟初始值不一样，第二次时，他们的值一样了，所有不会触发render)
         this.setState({carName: '迈巴赫'})
 
         /**注意:在继承PureComponent的组件中，这样写将无法更新状态
@@ -29,6 +29,8 @@ class PureComponentDemo extends PureComponent {
     }
 
     render() {
+        //使用PureComponent，当点击第一次时，父子组件都会重新渲染，因为状态值不一样；
+        // 第二次点击按钮时，不会再执行父子组件的render函数，因为他们的当前的状态和下一个状态都是一样的，所有不会执行渲染，从而提升了性能
         console.log('父render执行')
         const {carName} = this.state
         return (
@@ -42,7 +44,7 @@ class PureComponentDemo extends PureComponent {
     }
 }
 
-class Child extends PureComponent{
+class Child extends Component{
 
     //手动设置更新组件的阀门
     // shouldComponentUpdate(nextProps, nextState, nextContext) {
